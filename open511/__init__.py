@@ -15,6 +15,14 @@ cors = CORS(app, resources={
 
 @app.route('/')
 def index():
-    return "Open511 Orlando Endpoints<br>/jurisdiction<br>/jurisdictiongeography"
+    return """
+<html>
+<h1>Open511 Orlando Endpoints</h1>
+<ul>
+  <li><b>/jurisdiction</b> - City information</li>
+  <li><b>/jurisdictiongeography</b> - City limits geometry</li>
+</ul>
+</html>
+"""
 
 from open511.api import api
