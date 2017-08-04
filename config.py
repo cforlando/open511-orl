@@ -18,7 +18,7 @@ JURISDICTION = {
     'name': 'Orlando',
     'url': '/jurisdiction',
     'description': 'Road closure information from Orlando, FL',
-    'geography_url': '/jurisdictiongeo',
+    'geography_url': '/jurisdictiongeography',
     'languages': [
         'en'
     ],
