@@ -3,12 +3,12 @@ Open511 Orlando
 """
 
 # library
+from dicttoxml import dicttoxml
 from flask import Response, jsonify
 from flask_restful import Api, Resource
 # module
 from open511 import app
 from open511.api.validators import BASE_PARSER
-from open511.api.dicttoxml import dicttoxml
 
 api = Api(app)
 
