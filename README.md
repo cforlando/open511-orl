@@ -4,35 +4,97 @@
 
 ## Endpoints
 
-### `/jurisdiction`
+All endpoints accept the following arguements:
 
-Information about the city. Static values set in `config.py`
+- **format**: Response format - JSON (default), XML
+
+### `/ (root)`
+
+Information about the jurisdictions and servers available from the server
 
 ```json
 {
-  "jurisdiction": {
-    "description": "Road closure information from Orlando, FL", 
-    "email": "test@cityoforlando.net", 
-    "geography_url": "/jurisdictiongeo", 
-    "id": "cityoforlando.net", 
-    "languages": [
-      "en"
-    ], 
-    "license_url": "http://www.cityoforlando.net/legal/", 
-    "name": "Orlando", 
-    "phone": "123-456-7890", 
-    "timezone": "America/New_York", 
-    "url": "/jurisdiction"
-  }, 
+  "jurisdictions": [
+    {
+      "geography_url": "http://open511.cityoforlando.net/jurisdiction/cityoforlando.net/geography",
+      "id": "cityoforlando.net",
+      "name": "Orlando",
+      "url": "http://open511.cityoforlando.net/jurisdiction/cityoforlando.net"
+    }
+  ],
+  "services": [
+    {
+      "service_type_url": "http://open511.org/services/events",
+      "url": "/events/"
+    },
+    {
+      "service_type_url": "http://open511.org/services/events",
+      "url": "/areas/"
+    }
+  ],
   "meta": {
     "version": "v1"
   }
 }
 ```
 
-### `/jurisdictiongeography`
+### `/jurisdictions`
 
-The city limit as GeoJSON. Static values set in `config.py`
+Information about all of the covered jurisdictions. Static values set in `config.py`
+
+```json
+{
+  "jurisdictions": [
+    {
+      "description": "Road closure information from Orlando, FL",
+      "email": "test@cityoforlando.net",
+      "geography_url": "/jurisdictions/cityoforlando.net/geography",
+      "id": "cityoforlando.net",
+      "languages": [
+        "en"
+      ],
+      "license_url": "http://www.cityoforlando.net/legal/",
+      "name": "Orlando",
+      "phone": "123-456-7890",
+      "timezone": "America/New_York",
+      "url": "/jurisdictions/cityoforlando.net"
+    }
+  ],
+  "meta": {
+    "version": "v1"
+  }
+}
+```
+
+### `/jurisdictions/<city_id>`
+
+Information about a specific jurisdiction by `id` value
+
+```json
+{
+  "jurisdiction": {
+    "description": "Road closure information from Orlando, FL",
+    "email": "test@cityoforlando.net",
+    "geography_url": "/jurisdictions/cityoforlando.net/geography",
+    "id": "cityoforlando.net",
+    "languages": [
+      "en"
+    ],
+    "license_url": "http://www.cityoforlando.net/legal/",
+    "name": "Orlando",
+    "phone": "123-456-7890",
+    "timezone": "America/New_York",
+    "url": "/jurisdictions/cityoforlando.net"
+  },
+  "meta": {
+    "version": "v1"
+  }
+}
+```
+
+### `/jurisdictions/<city_id>/geography`
+
+The city limit as GeoJSON. Static values placed in the geometries folder and refereced in `config.py`
 
 ```json
 {
@@ -41,18 +103,18 @@ The city limit as GeoJSON. Static values set in `config.py`
       [
         [
           [
-            -81.4194608188114, 
+            -81.4194608188114,
             28.613177133793723
-          ], 
+          ],
           [
-            -81.41918968233719, 
+            -81.41918968233719,
             28.61303979445275
           ], ...
         ], ...
       ], ...
     ],
     "type": "MultiPolygon"
-  }, 
+  },
   "meta": {
     "version": "v1"
   }
