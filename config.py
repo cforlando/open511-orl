@@ -10,6 +10,11 @@ from json import load
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 BASEURL = 'http://open511.cityoforlando.net/'
 
+DEFAULT_ARGS = {
+    'limit': 20,
+    'offset': 0
+}
+
 META = {
     'version': 'v1'
 }
