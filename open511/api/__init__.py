@@ -24,7 +24,7 @@ CITY_IDS = list(GEOMETRIES.keys())
 class Endpoint(Resource):
     """Base Open511 API Endpoint"""
 
-    parser = BASE_PARSER
+    validator: 'RequestParser' = BASE_PARSER
 
     @staticmethod
     def validate_city_id(id: str):
@@ -39,7 +39,7 @@ class Endpoint(Resource):
 
     def get_args(self) -> {str: object}:
         """Get request args for a given parser after passing initial checks"""
-        args = self.parser.parse_args()
+        args = self.validator.parse_args()
         if not self.is_accepted_format(args['format']):
             abort(406, message='The server cannot return the data in the requested format')
         for key, value in args.items():
@@ -51,12 +51,14 @@ class Endpoint(Resource):
     def make_pagination(url: str, limit: int, offset: int) -> {str: object}:
         """Returns the pagination response element"""
         return {
-            'next_url': url + '?limit={}&offset={}'.format(limit, limit + offset),
+            'next_url': url + f'?limit={limit}&offset={limit + offset}',
             'offset': offset
         }
 
     def output(self, data: dict, args: dict, page_url: str = None) -> Response:
-        """Augment and format output data. Default/catch-all format is JSON"""
+        """Augment and format output data. Default/catch-all format is JSON
+        Will add pagination data if given a URL for page_url
+        """
         data['meta'] = META
         if page_url:
             data['pagination'] = self.make_pagination(page_url, args['limit'], args['offset'])
@@ -98,4 +100,4 @@ api.add_resource(Jurisdiction, '/jurisdictions')
 api.add_resource(JurisdictionID, '/jurisdictions/<string:id>')
 api.add_resource(GeographyID, '/jurisdictions/<string:id>/geography')
 
-import open511.api.event
+import open511.api.events

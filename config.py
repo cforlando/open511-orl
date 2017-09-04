@@ -10,6 +10,9 @@ from json import load
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 BASEURL = 'http://open511.cityoforlando.net/'
 
+# Default parameter arguements for all endpoints
+# Parameter names are unique across all endpoints
+# Parameters are filtered based on the endpoint's validator
 DEFAULT_ARGS = {
     'limit': 20,
     'offset': 0
