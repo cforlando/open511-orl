@@ -13,6 +13,7 @@ BASEURL = 'http://open511.cityoforlando.net/'
 # Default parameter arguements for all endpoints
 # Parameter names are unique across all endpoints
 # Parameters are filtered based on the endpoint's validator
+
 DEFAULT_ARGS = {
     'limit': 20,
     'offset': 0
@@ -22,26 +23,20 @@ META = {
     'version': 'v1'
 }
 
-ROOT_DATA = {
-    'jurisdictions': [
-        {
-            'id': 'cityoforlando.net',
-            'name': 'Orlando',
-            'url': BASEURL + 'jurisdiction/cityoforlando.net',
-            'geography_url': BASEURL + 'jurisdiction/cityoforlando.net/geography'
-        }
-    ],
-    'services' : [
-        {
-            'service_type_url': 'http://open511.org/services/events',
-            'url' : '/events/'
-        },
-        {
-            'service_type_url': 'http://open511.org/services/events',
-            'url' : '/areas/'
-        }
-    ]
-}
+# Services shown on root
+
+SERVICES = [
+    {
+        'service_type_url': 'http://open511.org/services/events',
+        'url' : '/events/'
+    },
+    {
+        'service_type_url': 'http://open511.org/services/areas',
+        'url' : '/areas/'
+    }
+]
+
+# List of jurisdiction information
 
 JURISDICTIONS = [
     {
@@ -59,6 +54,11 @@ JURISDICTIONS = [
         'email': 'test@cityoforlando.net'
     }
 ]
+
+# This creates a dictionary associating a jurisdiction ID with its GeoJSON
+#
+# To add a new entry, put the GeoJSON file in the geometries folder and
+# add a new tuple below with the jurisdiction ID and name of the file
 
 GEOMETRIES = {g[0]: load(open(os.path.join(BASEDIR, 'geometries', g[1]))) for g in (
     ('cityoforlando.net', 'orlando.geojson'),

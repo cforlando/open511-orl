@@ -28,7 +28,7 @@ Information about the jurisdictions and servers available from the server
       "url": "/events/"
     },
     {
-      "service_type_url": "http://open511.org/services/events",
+      "service_type_url": "http://open511.org/services/areas",
       "url": "/areas/"
     }
   ],

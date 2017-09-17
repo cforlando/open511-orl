@@ -13,11 +13,12 @@ from open511.api.validators import BASE_PARSER
 api = Api(app)
 
 DEFAULT_ARGS = app.config['DEFAULT_ARGS']
+BASEURL = app.config['BASEURL']
 
 GEOMETRIES = app.config['GEOMETRIES']
 JURISDICTIONS = app.config['JURISDICTIONS']
 META = app.config['META']
-ROOT_DATA = app.config['ROOT_DATA']
+SERVICES = app.config['SERVICES']
 
 CITY_IDS = list(GEOMETRIES.keys())
 
@@ -72,9 +73,24 @@ class Endpoint(Resource):
 # Static Data Endpoints
 
 class Root(Endpoint):
+
+    @staticmethod
+    def condense(jurisdiction: dict):
+        """Returns the jurisdiction dict containing only id, name, url, and geography_url"""
+        return {
+            'id': jurisdiction['id'],
+            'name': jurisdiction['name'],
+            'url': BASEURL + jurisdiction['url'],
+            'geography_url': BASEURL + jurisdiction['geography_url']
+        }
+
     def get(self) -> Response:
         """Returns the server root/discovery data"""
-        return self.output(ROOT_DATA, self.get_args())
+        data = {
+            'jurisditions': [self.condense(j) for j in JURISDICTIONS],
+            'services': SERVICES
+        }
+        return self.output(data, self.get_args())
 
 class Jurisdiction(Endpoint):
     def get(self) -> Response:
